@@ -6,6 +6,7 @@ from streamlit_extras.app_logo import add_logo
 from datetime import datetime, time
 import pickle
 from sklearn.metrics import mean_squared_error, mean_absolute_error, r2_score
+from streamlit_extras.dataframe_explorer import dataframe_explorer
 
 add_logo("data/washington2.jpeg", height=100)
 
@@ -60,12 +61,27 @@ if uploaded_file is not None:
 
     dataframe = dataframe.drop(['sunrise','sunset'], axis = 1)
 
-    X = dataframe.drop(columns = ['cnt', 'dteday', 'casual', 'registered', 'season', 'temp'])
+    X = dataframe.drop(columns = ['cnt', "dteday", 'casual', 'registered', 'season', 'temp'])
     X['hr'] = X['hr'].str[:2].astype(int)
 
     with open('data/model.pkl', 'rb') as f:
         model = pickle.load(f)
     y_pred = model.predict(X)
     X['count'] = y_pred
+    X['count'] = round(np.exp2(X['count']))
     X = X.loc[:, ["hr","count"]]
     st.write(X)
+
+    summary_table = X["count"].describe()
+    summary_table = summary_table.transpose()
+    st.write(summary_table)
+
+    X_interactive = X.copy()
+    X_interactive["dteday"] = dataframe["dteday"]
+    X_interactive['date'] = X_interactive['dteday'].apply(lambda x: x.strftime('%Y-%m-%d'))
+    X_interactive = X_interactive.drop("dteday", axis=1)
+    X_interactive["date"] = pd.to_datetime(X_interactive['date'])
+
+    interactive_data = dataframe_explorer(X_interactive)
+    interactive_data = pd.DataFrame(interactive_data.groupby('date')[['count']].sum())
+    st.bar_chart(interactive_data, use_container_width=True)
