@@ -6,34 +6,24 @@ import plotly.express as px
 import seaborn as sns
 from streamlit_extras.app_logo import add_logo
 from streamlit_extras.dataframe_explorer import dataframe_explorer
+import datetime
 
 add_logo("data/washington2.jpeg", height=100)
 
 data = pd.read_csv('data/final_data.csv')
 
+data['hr'] = pd.to_datetime(data['hr'])
+data['hr'] = data['hr'].apply(lambda x: x.hour)
+
 st.sidebar.markdown("# Exploratory Data Analysis")
 
 st.header("EDA")
 
-season_data = data.season.unique()
-holiday_data = data.holiday.unique()
-weekday_data = data.weekday.unique()
-workingday_data = data.workingday.unique()
-weathersit_data = data.weathersit.unique()
-year_data = data.year.unique()
-month_data = data.month.unique()
-
-st.sidebar.markdown("# Data Filters")
-season_option = st.sidebar.selectbox("Season:", season_data)
-holiday_option = st.sidebar.selectbox("Holiday:", holiday_data)
-weekday_option = st.sidebar.selectbox("Weekday:", weekday_data)
-year_option = st.sidebar.selectbox("Year:", year_data)
-month_option = st.sidebar.selectbox("Month:", month_data)
-
-st.subheader("Users using the service")
-st.text("On this graph we can visualise the amount of users interacting with the bike\nservice, throughout the given interval of two years.")
-tot_usrpd = pd.DataFrame(data.groupby('dteday')[['cnt','casual', 'registered']].sum())
-st.bar_chart(tot_usrpd, use_container_width=True)
+st.subheader("Dataframe")
+st.text("Users Using the service")
+filtered_df = dataframe_explorer(data)
+interactive_data = pd.DataFrame(filtered_df.groupby('dteday')[['cnt','casual', 'registered']].sum())
+st.bar_chart(interactive_data, use_container_width=True)
 
 st.subheader("Distribution of users per year")
 st.text("This distribution allow us to understand that most of the users comes from 2012\nand in a years the total usage of bicicles have double.")
@@ -116,9 +106,3 @@ plt.figure(figsize=(15, 7))
 sns.heatmap(
     data[cols_list].corr(), annot=True, vmin=-1, vmax=1, fmt=".2f", cmap="Spectral")
 st.pyplot(plt, clear_figure=True)
-
-st.subheader("Dataframe")
-st.text("This is the file we used to work with our project")
-filtered_df = dataframe_explorer(data)
-testtest = pd.DataFrame(filtered_df.groupby('dteday')[['cnt','casual', 'registered']].sum())
-st.bar_chart(testtest, use_container_width=True)

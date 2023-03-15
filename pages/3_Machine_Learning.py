@@ -19,22 +19,21 @@ st.sidebar.markdown("# Machine Learning Process")
 st.markdown("# Machine Learning")
 st.text("After doing the data preprocessing, we can start working on our model.\nOur goal is to predict the total amount of users since all the users are going to need a bike.")
 
-st.subheader("Step 1 - Train/Test Split")
-st.text("We need to divide the data into our train and test sets")
-with echo_expander():
-    from sklearn.model_selection import train_test_split
+st.subheader("Feature Engineering")
+st.text("In order to improve our data, we decided to engineer new features which would help\nus improve the model.")
 
-st.subheader("Step 2 - Modeling the data")
+st.subheader("Modeling the data")
 st.text("In this step we set up the algorithms for the models we will be using.")
 with echo_expander():
     from sklearn.ensemble import RandomForestRegressor
     from sklearn.neighbors import KNeighborsRegressor
     import xgboost as xgb
     from lightgbm import LGBMRegressor
-    from sklearn.model_selection import train_test_split
     from sklearn.linear_model import LinearRegression
 
-st.subheader("Step 3 - Model Evaluation")
+st.text("We selected algorithms that would allow us to make numerical predictions,\nas our aim is to calculate the amount of bikes that will be needed at different\npoints in time.")
+
+st.subheader("Model Evaluation")
 st.text("Now we compare the score of the metrics we used to evaluate the model\nand choose the one that suits our needs best")
 with echo_expander():
     from sklearn.metrics import mean_squared_error, mean_absolute_error, r2_score
@@ -46,10 +45,10 @@ st.markdown("- Root Mean Squared Error: 125.24")
 st.markdown("- R2 Score: 0.53")
 
 st.markdown("##### K-neighbours")
-st.markdown("- Mean Squared Error: ")
-st.markdown("- Mean Absolute Error: ")
-st.markdown("- Root Mean Squared Error: ")
-st.markdown("- R2 Score: ")
+st.markdown("- Mean Squared Error: 2964.36")
+st.markdown("- Mean Absolute Error: 34.00")
+st.markdown("- Root Mean Squared Error: 54.45")
+st.markdown("- R2 Score: 0.91")
 
 st.markdown("##### Random Forest Regressor")
 st.markdown("- Mean Absolute Error: 47.07")
