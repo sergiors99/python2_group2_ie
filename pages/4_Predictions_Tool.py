@@ -84,4 +84,4 @@ if uploaded_file is not None:
 
     interactive_data = dataframe_explorer(X_interactive)
     interactive_data = pd.DataFrame(interactive_data.groupby('date')[['count']].sum())
-    st.bar_chart(interactive_data, use_container_width=True)
+    st.line_chart(interactive_data, use_container_width=True)
