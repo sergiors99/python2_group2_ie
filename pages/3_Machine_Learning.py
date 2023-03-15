@@ -16,7 +16,8 @@ add_logo("data/washington2.jpeg", height=100)
 st.sidebar.markdown("# Machine Learning Process")
 
 st.markdown("# Machine Learning")
-st.text("After doing the data preprocessing, we can start working on our model.\nOur goal is to predict the total amount of users since all the users are going to need a bike.\nWe will acomplish our goal by making use of regression algorithms.")
+st.text("After doing the data preprocessing, we can start working on our model.\nOur goal is to predict the total amount of users.\nSince all the users are going to need a bike.\nWe will acomplish our goal by making use of regression algorithms.")
+st.text("Our main focus is to identify patterns to determine when bikes need to be available and when less so.\nHaving the appropiate amount of bikes in circulation ensures we keep running costs to a minimum,\nas having bikes not in use under bad weather conditions will deteriorate them.")
 
 st.subheader("Feature Engineering")
 st.text("In order to improve our data, we decided to engineer new features which would help\nus improve the model.")
@@ -38,11 +39,12 @@ st.text("Now we compare the score of the metrics we used to evaluate the model\n
 
 modelScores = {
     'Model': ['Linear Regression', "K-neighbours", "Random Forest Regressor", "LGBMRegressor", "XGBRegressor"],
-    'Mean Absolute Error': [94.42, 34.00, 47.07, 26.17, 24.78],
-    'Mean Squared Error': [15685.24, 2964.36, 4767.46, 1695.94, 1533.59],
-    'Root Mean Squared Error': [125.24, 54.45, 69.05, 41.18, 39.16],
-    'R2 Score': [0.53, 0.91, 0.86, 0.95, 0.95]
+    'Mean Absolute Error': [0.97, 0.38, 0.53, 0.31, 0.30],
+    'Mean Squared Error': [1.64, 0.31, 0.51, 0.22, 0.21],
+    'Root Mean Squared Error': [1.28, 0.56, 0.71, 0.47, 0.46],
+    'R2 Score': [0.64, 0.93, 0.89, 0.95, 0.95]
 }
+
 modelScores = pd.DataFrame(modelScores)
 modelScores = modelScores.sort_values(by='Root Mean Squared Error', ascending=True)
 st.write(modelScores)
