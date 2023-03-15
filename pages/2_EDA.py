@@ -20,8 +20,9 @@ st.header("EDA")
 
 st.subheader("Dataframe")
 st.text("Users Using the service")
-filtered_df = dataframe_explorer(data)
-interactive_data = pd.DataFrame(filtered_df.groupby('dteday')[['cnt','casual', 'registered']].sum())
+st.markdown("###### DISCLAIMER: Very complex queries may crash the application")
+interactive_data = dataframe_explorer(data)
+interactive_data = pd.DataFrame(interactive_data.groupby('dteday')[['cnt','casual', 'registered']].sum())
 st.bar_chart(interactive_data, use_container_width=True)
 
 st.subheader("Distribution of users per year")

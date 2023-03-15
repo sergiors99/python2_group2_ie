@@ -67,4 +67,5 @@ if uploaded_file is not None:
         model = pickle.load(f)
     y_pred = model.predict(X)
     X['count'] = y_pred
+    X = X.loc[:, ["hr","count"]]
     st.write(X)

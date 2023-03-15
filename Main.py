@@ -33,6 +33,3 @@ st.markdown("- Deploying Model")
 
 st.subheader("Predictions Tool")
 st.markdown("- Make your predictions in real time")
-
-st.subheader("Suggestions")
-st.markdown("- Possible Solutions")

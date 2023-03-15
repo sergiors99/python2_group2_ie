@@ -39,35 +39,16 @@ st.text("Now we compare the score of the metrics we used to evaluate the model\n
 with echo_expander():
     from sklearn.metrics import mean_squared_error, mean_absolute_error, r2_score
 
-st.markdown("##### Linear Regression")
-st.markdown("- Mean Absolute Error: 94.42")
-st.markdown("- Mean Squared Error: 15685.24")
-st.markdown("- Root Mean Squared Error: 125.24")
-st.markdown("- R2 Score: 0.53")
-
-st.markdown("##### K-neighbours")
-st.markdown("- Mean Squared Error: 2964.36")
-st.markdown("- Mean Absolute Error: 34.00")
-st.markdown("- Root Mean Squared Error: 54.45")
-st.markdown("- R2 Score: 0.91")
-
-st.markdown("##### Random Forest Regressor")
-st.markdown("- Mean Absolute Error: 47.07")
-st.markdown("- Mean Squared Error: 4767.46")
-st.markdown("- Root Mean Squared Error: 69.05")
-st.markdown("- R2 Score: 0.86")
-
-st.markdown("##### LGBMRegressor")
-st.markdown("- Mean Absolute Error: 26.17")
-st.markdown("- Mean Squared Error: 1695.94")
-st.markdown("- Root Mean Squared Error: 41.18")
-st.markdown("- R2 Score: 0.95")
-
-st.markdown("##### XGBRegressor")
-st.markdown("- Mean Absolute Error: 24.78")
-st.markdown("- Mean Squared Error: 1533.59")
-st.markdown("- Root Mean Squared Error: 39.16")
-st.markdown("- R2 Score: 0.95")
+modelScores = {
+    'Model': ['Linear Regression', "K-neighbours", "Random Forest Regressor", "LGBMRegressor", "XGBRegressor"],
+    'Mean Absolute Error': [94.42, 34.00, 47.07, 26.17, 24.78],
+    'Mean Squared Error': [15685.24, 2964.36, 4767.46, 1695.94, 1533.59],
+    'Root Mean Squared Error': [125.24, 54.45, 69.05, 41.18, 39.16],
+    'R2 Score': [0.53, 0.91, 0.86, 0.95, 0.95]
+}
+modelScores = pd.DataFrame(modelScores)
+modelScores = modelScores.sort_values(by='Root Mean Squared Error', ascending=True)
+st.write(modelScores)
 
 st.subheader("Deploying Model")
 st.text("Once we have our best mode, on this case being XGBRegressor, because it returned\nthe best metrics for our business solution")
