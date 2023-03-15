@@ -11,7 +11,6 @@ import datetime
 add_logo("data/washington2.jpeg", height=100)
 
 data = pd.read_csv('data/final_data.csv')
-
 data['hr'] = pd.to_datetime(data['hr'])
 data['hr'] = data['hr'].apply(lambda x: x.hour)
 
