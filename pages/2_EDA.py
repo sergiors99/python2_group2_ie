@@ -29,7 +29,7 @@ st.subheader("Dataframe")
 st.text("Users Using the service")
 st.markdown("###### DISCLAIMER: Very complex queries may crash the application")
 interactive_data = dataframe_explorer(data)
-interactive_data = pd.DataFrame(interactive_data.groupby('dteday')[['count','casual', 'registered']].sum())
+interactive_data = pd.DataFrame(interactive_data.groupby('dteday')[['casual','count', 'registered']].sum())
 st.bar_chart(interactive_data, use_container_width=True)
 
 st.subheader("Distribution of users per year")
